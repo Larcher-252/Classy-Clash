@@ -36,7 +36,20 @@ AnimData animUpdate (AnimData data, float deltaTime)
 class Character
 {
     public:
+    Vector2 GetWorldPos()
+    {
+        return worldPos;
+    }
     private:
+    Texture2D texture;
+    Texture2D idle;
+    Texture2D run;
+    Vector2 screenPos;
+    Vector2 worldPos;
+    float runTime {0.0f};
+    float updTime {1.0f / 12.0f};
+    int frame {0};
+    int maxFrame {5};
 };
 
 int main ()
