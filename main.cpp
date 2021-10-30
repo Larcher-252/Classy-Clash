@@ -33,6 +33,12 @@ AnimData animUpdate (AnimData data, float deltaTime)
     return data;
 }
 
+class Character
+{
+    public:
+    private:
+};
+
 int main ()
 {
     // Window params
