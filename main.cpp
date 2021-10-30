@@ -13,10 +13,25 @@ struct AnimData
 {
     Rectangle source {0.0f, 0.0f, 0.0f, 0.0f};
     Rectangle dest {0.0f, 0.0f, 0.0f, 0.0f};
-    const Vector2 origin {0.0f, 0.0f};
+    Vector2 origin {0.0f, 0.0f};
+    float runTime {0.0f};
+    float updTime {1.0f / 12.0f};
     int frame {0};
-    int const maxFrame {5};
+    int maxFrame {5};
 };
+
+// Update texture frames
+AnimData animUpdate (AnimData data, float deltaTime)
+{
+    data.runTime += deltaTime;
+    if (data.runTime >= data.updTime)
+    {
+        data.runTime = 0.0f;
+        if (data.frame++ > data.maxFrame) {data.frame = 0;}
+        data.source.x = data.frame * data.source.width;
+    }
+    return data;
+}
 
 int main ()
 {
@@ -32,15 +47,16 @@ int main ()
     myBG.scale = 4.0f;
 
     // Knight params
-    Texture2D knight = LoadTexture("characters/knight_idle_spritesheet.png");
+    Texture2D knight_idle = LoadTexture("characters/knight_idle_spritesheet.png");
+    Texture2D knight_run = LoadTexture("characters/knight_run_spritesheet.png");
     Vector2 direction {0.0f, 0.0f};
     const float speed {10};
     TextureData knightText;
-    knightText.texture = knight;
-    knightText.scale = 4.0f;
+    knightText.texture = knight_idle;
+    knightText.scale = 5.0f;
     AnimData knightAnim;
-    knightAnim.source.width = knight.width / (knightAnim.maxFrame + 1);
-    knightAnim.source.height = knight.height;
+    knightAnim.source.width = knight_idle.width / (knightAnim.maxFrame + 1);
+    knightAnim.source.height = knight_idle.height;
     knightAnim.source.x = knightAnim.source.width * knightAnim.frame;
     knightAnim.dest.width = knightAnim.source.width * knightText.scale;
     knightAnim.dest.height = knightAnim.source.height * knightText.scale;
@@ -59,10 +75,17 @@ int main ()
 
         if (Vector2Length(direction) != 0.0f)
         {
+            knightText.texture = knight_run;
             direction = Vector2Normalize(direction);
             direction = Vector2Scale(direction, speed);
             myBG.pos = Vector2Subtract(myBG.pos, direction);
         }
+        else    knightText.texture = knight_idle;
+
+        if (IsKeyPressed(KEY_A) && (knightAnim.source.width > 0)) knightAnim.source.width *= -1;
+        if (IsKeyPressed(KEY_D) && (knightAnim.source.width < 0)) knightAnim.source.width *= -1;
+
+        knightAnim = animUpdate(knightAnim, GetFrameTime());
 
         BeginDrawing();
         ClearBackground(WHITE);
@@ -71,6 +94,6 @@ int main ()
         EndDrawing();
     }
     UnloadTexture(map);
-    UnloadTexture(knight);
+    UnloadTexture(knight_idle);
     CloseWindow();
 }
