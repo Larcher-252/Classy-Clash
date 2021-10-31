@@ -1,7 +1,7 @@
 #include "Character.h"
 #include "raymath.h"
 
-Character::Character()
+Character::Character(int windowWidth, int windowHeight)
 {
     // Textures
     idle = LoadTexture("characters/knight_idle_spritesheet.png");
@@ -15,14 +15,14 @@ Character::Character()
     rec = {
         0.0f,
         0.0f,
-        (float)texture.width / (float)(maxFrame + 1),
-        (float)texture.height
+        static_cast<float>(texture.width) / static_cast<float>(maxFrame + 1),
+        static_cast<float>(texture.height)
     };
     
     // Initialize dest for draw
     screen = {
-    0.0f,
-    0.0f,
+    static_cast<float>(windowWidth) / 2.0f - 0.5f * static_cast<float>(rec.width) * scale,
+    static_cast<float>(windowHeight) / 2.0f - 0.5f * static_cast<float>(rec.height) * scale,
     rec.width * scale,
     rec.height * scale
     };
@@ -36,12 +36,6 @@ Character::Character()
     // Speed params
     speed = 10;
     direction = {0.0f, 0.0f};
-}
-
-void Character::setScreenPos(int width, int height)
-{
-    screen.x = (float)width / 2.0f - 0.5f * screen.width;
-    screen.y = (float)height / 2.0f - 0.5f * screen.height;
 }
 
 void Character::tick(float deltaTime)

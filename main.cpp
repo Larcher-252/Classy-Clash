@@ -35,8 +35,7 @@ int main()
     myBG.scale = 4.0f;
 
     // Knight params
-    Character knight;
-    knight.setScreenPos(windowRes[0], windowRes[1]);
+    Character knight {windowRes[0], windowRes[1]};
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
