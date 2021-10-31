@@ -15,7 +15,7 @@ Character::Character()
     rec = {
         0.0f,
         0.0f,
-        (float)texture.width / 6.0f,
+        (float)texture.width / (float)(maxFrame + 1),
         (float)texture.height
     };
     
@@ -40,12 +40,15 @@ Character::Character()
 
 void Character::setScreenPos(int width, int height)
 {
-    screen.x = (float)width / 2.0f - 4.0f * (0.5f * (float)texture.width / 6.0f);
-    screen.y = (float)height / 2.0f - 4.0f * (0.5f * (float)texture.height);
+    screen.x = (float)width / 2.0f - 0.5f * screen.width;
+    screen.y = (float)height / 2.0f - 0.5f * screen.height;
 }
 
 void Character::tick(float deltaTime)
 {
+    // Backup
+    lastWorldPos = worldPos;
+
     // Update direction
     direction.x = 0;
     direction.y = 0;
@@ -81,3 +84,5 @@ void Character::tick(float deltaTime)
 
     DrawTexturePro(texture, rec, screen, Vector2 {}, 0.0f, WHITE);
 }
+
+void Character::undoMovement() {worldPos = lastWorldPos;}

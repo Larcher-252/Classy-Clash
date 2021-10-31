@@ -47,6 +47,11 @@ int main()
         ClearBackground(WHITE);
         DrawTextureEx(myBG.texture, myBG.pos, myBG.rotation, myBG.scale, WHITE);
         knight.tick(GetFrameTime());
+        if ((knight.getWorldPos().x < 0) || (knight.getWorldPos().x + windowRes[0] > myBG.texture.width * myBG.scale) || 
+        (knight.getWorldPos().y < 0) || (knight.getWorldPos().y + windowRes[0] > myBG.texture.height * myBG.scale))
+        {
+            knight.undoMovement();
+        }
         EndDrawing();
     }
     UnloadTexture(map);

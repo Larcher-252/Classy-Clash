@@ -7,6 +7,7 @@ public:
     Vector2 getWorldPos() {return worldPos;}
     void setScreenPos(int width, int height);
     void tick(float deltaTime);
+    void undoMovement();
 
 private:
     // Texture variables
@@ -16,6 +17,7 @@ private:
 
     // Position params
     Vector2 worldPos {};
+    Vector2 lastWorldPos {};
     float scale {};
 
     // Frames variables
