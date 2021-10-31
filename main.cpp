@@ -36,7 +36,7 @@ int main()
 
     // Knight params
     Character knight;
-    knight.setScreenPosition(windowRes[0], windowRes[1]);
+    knight.setScreenPos(windowRes[0], windowRes[1]);
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
