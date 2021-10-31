@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "Character.h"
+#include "Prop.h"
 
 struct TextureData
 {
@@ -37,6 +38,8 @@ int main()
     // Knight params
     Character knight {windowRes[0], windowRes[1]};
 
+    Prop rock {{0.0f, 0.0f}, LoadTexture("nature_tileset/Rock.png")};
+
     SetTargetFPS(60);
     while (!WindowShouldClose())
     {
@@ -44,13 +47,17 @@ int main()
 
         BeginDrawing();
         ClearBackground(WHITE);
+        
         DrawTextureEx(myBG.texture, myBG.pos, myBG.rotation, myBG.scale, WHITE);
+        rock.Render(knight.getWorldPos());
         knight.tick(GetFrameTime());
+
         if ((knight.getWorldPos().x < 0) || (knight.getWorldPos().x + windowRes[0] > myBG.texture.width * myBG.scale) || 
         (knight.getWorldPos().y < 0) || (knight.getWorldPos().y + windowRes[0] > myBG.texture.height * myBG.scale))
         {
             knight.undoMovement();
         }
+
         EndDrawing();
     }
     UnloadTexture(map);
