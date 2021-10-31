@@ -80,3 +80,5 @@ void Character::tick(float deltaTime)
 }
 
 void Character::undoMovement() {worldPos = lastWorldPos;}
+
+Rectangle Character::GetCollisionRec() {return screen;}
