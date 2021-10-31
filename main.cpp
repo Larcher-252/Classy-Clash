@@ -45,16 +45,21 @@ public:
 
 private:
     // Texture variables
-    Texture2D texture;
-    Texture2D idle;
-    Texture2D run;
+    Texture2D texture = LoadTexture("characters/knight_idle_spritesheet.png");
+    Texture2D const idle = LoadTexture("characters/knight_idle_spritesheet.png");
+    Texture2D const run = LoadTexture("characters/knight_run_spritesheet.png");
 
     // Position params
     Vector2 screenPos;
     Vector2 worldPos;
 
     // Frames variables
-    Rectangle rec;
+    Rectangle rec {
+        0.0f,
+        0.0f,
+        (float)texture.width / 6.0f,
+        (float)texture.height
+    };
     float runTime{0.0f};
     float updTime{1.0f / 12.0f};
     int frame{0};
@@ -85,21 +90,20 @@ void Character::tick(float deltaTime)
         direction.y -= 1;
     if (IsKeyDown(KEY_S))
         direction.y += 1;
-    
+
     // Update texture and position
     if (Vector2Length(direction) != 0.0f)
     {
         texture = run;
         direction = Vector2Normalize(direction);
         direction = Vector2Scale(direction, speed);
-        worldPos = Vector2Subtract(worldPos, direction);
+        worldPos = Vector2Add(worldPos, direction);
+        // Update left right rotate
+        if ((IsKeyPressed(KEY_A) && (rec.width > 0)) || (IsKeyPressed(KEY_D) && (rec.width < 0)))
+            rec.width *= -1;
     }
     else
         texture = idle;
-    
-    // Update left right rotate
-    if ((IsKeyPressed(KEY_A) && (rec.width > 0)) || (IsKeyPressed(KEY_D) && (rec.width < 0)))
-    rec.width *= -1;
 
     // Update frames
     runTime += deltaTime;
@@ -112,6 +116,13 @@ void Character::tick(float deltaTime)
         }
         rec.x = frame * rec.width;
     }
+    Rectangle dest {
+        screenPos.x,
+        screenPos.y,
+        (float)texture.width / 6.0f * 4.0f,
+        (float)texture.height * 4.0f
+    };
+    DrawTexturePro(texture, rec, dest, Vector2 {}, 0.0f, WHITE);
 }
 
 int main()
@@ -130,55 +141,18 @@ int main()
     // Knight params
     Texture2D knight_idle = LoadTexture("characters/knight_idle_spritesheet.png");
     Texture2D knight_run = LoadTexture("characters/knight_run_spritesheet.png");
-    const float speed{10};
-    Vector2 direction{0.0f, 0.0f};
-    TextureData knightText;
-    knightText.texture = knight_idle;
-    knightText.scale = 5.0f;
-    AnimData knightAnim;
-    knightAnim.source.width = knight_idle.width / (knightAnim.maxFrame + 1);
-    knightAnim.source.height = knight_idle.height;
-    knightAnim.source.x = knightAnim.source.width * knightAnim.frame;
-    knightAnim.dest.width = knightAnim.source.width * knightText.scale;
-    knightAnim.dest.height = knightAnim.source.height * knightText.scale;
-    knightAnim.dest.x = windowRes[0] / 2 - knightAnim.dest.width / 2;
-    knightAnim.dest.y = windowRes[1] / 2 - knightAnim.dest.height / 2;
+    Character knight;
+    knight.setScreenPosition(windowRes[0], windowRes[1]);
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
     {
-        direction.x = 0;
-        direction.y = 0;
-        if (IsKeyDown(KEY_A))
-            direction.x -= 1;
-        if (IsKeyDown(KEY_D))
-            direction.x += 1;
-        if (IsKeyDown(KEY_W))
-            direction.y -= 1;
-        if (IsKeyDown(KEY_S))
-            direction.y += 1;
-
-        if (Vector2Length(direction) != 0.0f)
-        {
-            knightText.texture = knight_run;
-            direction = Vector2Normalize(direction);
-            direction = Vector2Scale(direction, speed);
-            myBG.pos = Vector2Subtract(myBG.pos, direction);
-        }
-        else
-            knightText.texture = knight_idle;
-
-        if (IsKeyPressed(KEY_A) && (knightAnim.source.width > 0))
-            knightAnim.source.width *= -1;
-        if (IsKeyPressed(KEY_D) && (knightAnim.source.width < 0))
-            knightAnim.source.width *= -1;
-
-        knightAnim = animUpdate(knightAnim, GetFrameTime());
+        myBG.pos = Vector2Scale(knight.getWorldPos(), -1.0f);
 
         BeginDrawing();
         ClearBackground(WHITE);
         DrawTextureEx(myBG.texture, myBG.pos, myBG.rotation, myBG.scale, WHITE);
-        DrawTexturePro(knightText.texture, knightAnim.source, knightAnim.dest, knightAnim.origin, knightText.rotation, WHITE);
+        knight.tick(GetFrameTime());
         EndDrawing();
     }
     UnloadTexture(map);
