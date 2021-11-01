@@ -2,11 +2,12 @@
 
 class Prop
 {
-    public:
+public:
     Prop(Vector2 pos, Texture2D texture);
     void Render(Vector2 knightPos);
     Rectangle GetCollisionRec(Vector2 knightPos);
-    private:
+
+private:
     Texture2D texture{};
     Vector2 worldPos{};
     float scale{4.0f};

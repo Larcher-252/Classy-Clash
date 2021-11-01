@@ -11,6 +11,12 @@ Character::Character(int windowWidth, int windowHeight)
     // Draw params
     scale = 4.0f;
 
+    // Frames params
+    runTime = 0.0f;
+    updTime = 1.0f / 12.0f;
+    frame = 0;
+    maxFrame = 5;
+
     // Initialize rec for frames
     rec = {
         0.0f,
@@ -26,12 +32,6 @@ Character::Character(int windowWidth, int windowHeight)
     rec.width * scale,
     rec.height * scale
     };
-
-    // Frames params
-    runTime = 0.0f;
-    updTime = 1.0f / 12.0f;
-    frame = 0;
-    maxFrame = 5;
 
     // Speed params
     speed = 10;
@@ -59,7 +59,7 @@ void Character::tick(float deltaTime)
         direction = Vector2Scale(direction, speed);
         worldPos = Vector2Add(worldPos, direction);
         // Update left right rotate
-        if ((IsKeyPressed(KEY_A) && (rec.width > 0)) || (IsKeyPressed(KEY_D) && (rec.width < 0))) rec.width *= -1;
+        if (((direction.x < 0) && (rec.width > 0)) || ((direction.x > 0) && (rec.width < 0))) rec.width *= -1;
     }
     else
         texture = idle;

@@ -3,9 +3,9 @@
 class Enemy
 {
     public:
-    Enemy(Vector2 pos, Texture2D idle, Texture2D run);
+    Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex);
     Vector2 getWorldPos() {return worldPos;}
-    void tick(float deltaTime);
+    void tick(float deltaTime, Vector2 knightPos);
     void undoMovement();
     Rectangle GetCollisionRec();
 
