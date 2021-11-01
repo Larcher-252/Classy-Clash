@@ -7,11 +7,18 @@ class BaseCharacter
 {
 public:
     BaseCharacter();
-    Vector2 getWorldPos()       { return worldPos; }
-    Vector2 getScreenPos()      { return {screen.x, screen.y};}
-    Rectangle GetCollisionRec() { return screen; }
-    void undoMovement()         { worldPos = lastWorldPos; }
+    // Rectangle getters
+    Rectangle getScreenRec();
+    Rectangle getSourceRec();
+    Rectangle GetCollisionRec() { return getScreenRec(); }
+    // Undo last character movement
+    void undoMovement() { worldPos = lastWorldPos; }
+    // Function that is used every frame
     virtual void tick(float deltaTime);
+    // Return world position
+    Vector2 getWorldPos() { return worldPos; }
+    // Pure virtual function that make class abstract
+    virtual Vector2 getScreenPos() = 0;
 
 protected:
     // Texture variables
@@ -23,18 +30,17 @@ protected:
     Vector2 worldPos{};
     Vector2 lastWorldPos{};
     float scale{};
+    bool toTheRight{};
 
     // Frames variables
-    Rectangle rec{};
-    Rectangle screen{};
     float runTime{};
     float updTime{};
     int frame{};
-    int maxFrame{};
+    int frameCount{};
 
     // Moving variables
     float speed{};
-    Vector2 direction{};
+    Vector2 velocity{};
 };
 
 #endif
