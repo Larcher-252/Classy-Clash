@@ -59,7 +59,7 @@ int main()
         knight.tick(GetFrameTime());
 
         // Draw goblin
-        goblin.tick(GetFrameTime(), knight.getWorldPos());
+        goblin.tick(GetFrameTime());
 
         // Map bounds check
         if ((knight.getWorldPos().x < 0) || (knight.getWorldPos().x + windowRes[0] > myBG.texture.width * myBG.scale) || 

@@ -8,8 +8,9 @@ class BaseCharacter
 public:
     BaseCharacter();
     Vector2 getWorldPos()       { return worldPos; }
-    void undoMovement()         { worldPos = lastWorldPos; }
     Rectangle GetCollisionRec() { return screen; }
+    void undoMovement()         { worldPos = lastWorldPos; }
+    virtual void tick(float deltaTime);
 
 protected:
     // Texture variables

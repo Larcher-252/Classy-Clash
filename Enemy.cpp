@@ -35,26 +35,7 @@ Enemy::Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex)
     direction = {0.0f, 0.0f};
 }
 
-void Enemy::tick(float deltaTime, Vector2 knightPos)
+void Enemy::tick(float deltaTime)
 {
-    // Backup
-    lastWorldPos = worldPos;
-
-    // Update frames
-    runTime += deltaTime;
-    if (runTime >= updTime)
-    {
-        runTime = 0.0f;
-        if (frame++ > maxFrame)
-        {
-            frame = 0;
-        }
-        rec.x = frame * rec.width;
-    }
-
-    Vector2 screenPos{Vector2Subtract(worldPos, knightPos)};
-    screen.x = screenPos.x;
-    screen.y = screenPos.y;
-
-    DrawTexturePro(texture, rec, screen, Vector2{}, 0.0f, WHITE);
+    BaseCharacter::tick(deltaTime);
 }

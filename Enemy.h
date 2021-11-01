@@ -8,7 +8,7 @@ class Enemy : public BaseCharacter
 {
     public:
     Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex);
-    void tick(float deltaTime, Vector2 knightPos);
+    virtual void tick(float deltaTime) override;
 
     private:
 };
