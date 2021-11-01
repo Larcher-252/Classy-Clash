@@ -31,14 +31,20 @@ Enemy::Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex)
         rec.height * scale};
 
     // Speed params
-    speed = 10;
+    speed = 3.5f;
     direction = {0.0f, 0.0f};
 }
 
 void Enemy::tick(float deltaTime)
 {
+    Vector2 toTarget = Vector2Subtract(target->getScreenPos(), {screen.x, screen.y});
+    toTarget = Vector2Normalize(toTarget);
+    toTarget = Vector2Scale(toTarget, speed);
+    worldPos = Vector2Add(worldPos, toTarget);
+
     Vector2 screenPos = Vector2Subtract(worldPos ,target->getWorldPos());
     screen.x = screenPos.x;
     screen.y = screenPos.y;
+
     BaseCharacter::tick(deltaTime);
 }

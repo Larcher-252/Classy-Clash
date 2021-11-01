@@ -8,6 +8,7 @@ class BaseCharacter
 public:
     BaseCharacter();
     Vector2 getWorldPos()       { return worldPos; }
+    Vector2 getScreenPos()      { return {screen.x, screen.y};}
     Rectangle GetCollisionRec() { return screen; }
     void undoMovement()         { worldPos = lastWorldPos; }
     virtual void tick(float deltaTime);
