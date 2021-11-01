@@ -30,6 +30,7 @@ int main()
 
     // Enemy params
     Enemy goblin {{200.0f, 200.0f}, LoadTexture("characters/goblin_idle_spritesheet.png"), LoadTexture("characters/goblin_run_spritesheet.png")};
+    goblin.setTarget(&knight);
 
     Prop props[] {
         Prop {{300.0f, 600.0f}, LoadTexture("nature_tileset/Rock.png")},
