@@ -37,5 +37,8 @@ Enemy::Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex)
 
 void Enemy::tick(float deltaTime)
 {
+    Vector2 screenPos = Vector2Subtract(worldPos ,target->getWorldPos());
+    screen.x = screenPos.x;
+    screen.y = screenPos.y;
     BaseCharacter::tick(deltaTime);
 }
