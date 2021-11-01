@@ -27,15 +27,23 @@ int main()
     myBG.scale = 4.0f;
 
     // Knight params
-    Character knight {windowRes[0], windowRes[1]};
+    Character knight{windowRes[0], windowRes[1]};
 
     // Enemy params
-    Enemy goblin {{200.0f, 200.0f}, LoadTexture("characters/goblin_idle_spritesheet.png"), LoadTexture("characters/goblin_run_spritesheet.png")};
-    goblin.setTarget(&knight);
+    Enemy goblin{{200.0f, 200.0f}, LoadTexture("characters/goblin_idle_spritesheet.png"), LoadTexture("characters/goblin_run_spritesheet.png")};
+    Enemy badGoblin{{1000.0f, 200.0f}, LoadTexture("characters/goblin_idle_spritesheet.png"), LoadTexture("characters/goblin_run_spritesheet.png")};
+    Enemy *Enemies[]{
+        &goblin,
+        &badGoblin};
 
-    Prop props[] {
-        Prop {{300.0f, 600.0f}, LoadTexture("nature_tileset/Rock.png")},
-        Prop {{600.0f, 300.0f}, LoadTexture("nature_tileset/Rock.png")},
+    for (auto ptr : Enemies)
+    {
+        ptr->setTarget(&knight);
+    }
+
+    Prop props[]{
+        Prop{{300.0f, 600.0f}, LoadTexture("nature_tileset/Rock.png")},
+        Prop{{600.0f, 300.0f}, LoadTexture("nature_tileset/Rock.png")},
     };
 
     SetTargetFPS(60);
@@ -47,7 +55,7 @@ int main()
         // Start drawing
         BeginDrawing();
         ClearBackground(WHITE);
-        
+
         // Draw map
         DrawTextureEx(myBG.texture, myBG.pos, myBG.rotation, myBG.scale, WHITE);
 
@@ -74,11 +82,14 @@ int main()
         knight.tick(GetFrameTime());
 
         // Draw goblin
-        goblin.tick(GetFrameTime());
+        for (auto ptr : Enemies)
+        {
+            ptr->tick(GetFrameTime());
+        }
 
         // Map bounds check
-        if ((knight.getWorldPos().x < 0) || (knight.getWorldPos().x + windowRes[0] > myBG.texture.width * myBG.scale) || 
-        (knight.getWorldPos().y < 0) || (knight.getWorldPos().y + windowRes[0] > myBG.texture.height * myBG.scale))
+        if ((knight.getWorldPos().x < 0) || (knight.getWorldPos().x + windowRes[0] > myBG.texture.width * myBG.scale) ||
+            (knight.getWorldPos().y < 0) || (knight.getWorldPos().y + windowRes[0] > myBG.texture.height * myBG.scale))
         {
             knight.undoMovement();
         }
@@ -94,8 +105,11 @@ int main()
 
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
         {
-            if (CheckCollisionRecs(knight.getWeaponCollisionRec(), goblin.GetCollisionRec()))
-                goblin.setAlive(false);
+            for (auto ptr : Enemies)
+            {
+                if (CheckCollisionRecs(knight.getWeaponCollisionRec(), ptr->GetCollisionRec()))
+                    ptr->setAlive(false);
+            }
         }
 
         EndDrawing();
