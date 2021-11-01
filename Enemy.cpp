@@ -1,11 +1,13 @@
 #include "Enemy.h"
 #include "raymath.h"
 
-Enemy::Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex) : worldPos(pos),
-                                                                   texture(idle_tex),
-                                                                   idle(idle_tex),
-                                                                   run(run_tex)
+Enemy::Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex)
 {
+    worldPos = pos;
+    texture = idle_tex;
+    idle = idle_tex;
+    run = run_tex;
+
     // Draw params
     scale = 4.0f;
 
@@ -50,13 +52,9 @@ void Enemy::tick(float deltaTime, Vector2 knightPos)
         rec.x = frame * rec.width;
     }
 
-    Vector2 screenPos {Vector2Subtract(worldPos, knightPos)};
+    Vector2 screenPos{Vector2Subtract(worldPos, knightPos)};
     screen.x = screenPos.x;
     screen.y = screenPos.y;
 
-    DrawTexturePro(texture, rec, screen, Vector2 {}, 0.0f, WHITE);
+    DrawTexturePro(texture, rec, screen, Vector2{}, 0.0f, WHITE);
 }
-
-void Enemy::undoMovement() { worldPos = lastWorldPos; }
-
-Rectangle Enemy::GetCollisionRec() { return screen; }
