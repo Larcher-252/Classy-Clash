@@ -87,3 +87,9 @@ Vector2 Character::getScreenPos()
         static_cast<float>(windowWidth) / 2.0f - static_cast<float>(texture.width) / static_cast<float>(frameCount) * scale * 0.5f,
         static_cast<float>(windowHeight) / 2.0f - static_cast<float>(texture.height) * scale * 0.5f};
 }
+
+void Character::takeDamage(float damage)
+{
+    health -= damage;
+    if (health <= 0) setAlive(false);
+}
