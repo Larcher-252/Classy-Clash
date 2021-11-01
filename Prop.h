@@ -1,3 +1,6 @@
+#ifndef PROP_H
+#define PROP_H
+
 #include "raylib.h"
 
 class Prop
@@ -12,3 +15,5 @@ private:
     Vector2 worldPos{};
     float scale{4.0f};
 };
+
+#endif

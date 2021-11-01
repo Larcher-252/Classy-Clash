@@ -1,6 +1,10 @@
-#include "raylib.h"
+#ifndef ENEMY_H
+#define ENEMY_H
 
-class Enemy
+#include "raylib.h"
+#include "BaseCharacter.h"
+
+class Enemy : public BaseCharacter
 {
     public:
     Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex);
@@ -32,3 +36,5 @@ class Enemy
     float speed {};
     Vector2 direction {};
 };
+
+#endif

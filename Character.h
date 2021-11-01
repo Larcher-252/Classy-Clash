@@ -1,6 +1,10 @@
-#include "raylib.h"
+#ifndef CHARACTER_H
+#define CHARACTER_H
 
-class Character
+#include "raylib.h"
+#include "BaseCharacter.h"
+
+class Character : public BaseCharacter
 {
 public:
     Character(int windowWidth, int windowHeight);
@@ -32,3 +36,5 @@ private:
     float speed {};
     Vector2 direction {};
 };
+
+#endif
