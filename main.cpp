@@ -3,6 +3,7 @@
 #include "Character.h"
 #include "Prop.h"
 #include "Enemy.h"
+#include <string>
 
 struct TextureData
 {
@@ -54,6 +55,19 @@ int main()
         for (auto prop : props)
         {
             prop.Render(knight.getWorldPos());
+        }
+
+        if (knight.getAlive())
+        {
+            std::string HP = "HP: ";
+            HP.append(std::to_string(knight.getHealth()), 0, 5);
+            DrawText(HP.c_str(), 55.f, 45.f, 40, RED);
+        }
+        else
+        {
+            DrawText("Game Over!", 55.f, 45.f, 40, RED);
+            EndDrawing();
+            continue;
         }
 
         // Draw knight
