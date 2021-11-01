@@ -20,6 +20,9 @@ public:
     // Pure virtual function that make class abstract
     virtual Vector2 getScreenPos() = 0;
 
+    bool getAlive() {return alive;}
+    void setAlive(bool isAlive) {alive = isAlive;}
+
 protected:
     // Texture variables
     Texture2D texture{};
@@ -41,6 +44,8 @@ protected:
     // Moving variables
     float speed{};
     Vector2 velocity{};
+
+    bool alive{true};
 };
 
 #endif

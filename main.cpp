@@ -78,6 +78,12 @@ int main()
             }
         }
 
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+        {
+            if (CheckCollisionRecs(knight.getWeaponCollisionRec(), goblin.GetCollisionRec()))
+                goblin.setAlive(false);
+        }
+
         EndDrawing();
     }
     UnloadTexture(map);
