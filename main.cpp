@@ -41,8 +41,9 @@ int main()
         ptr->setTarget(&knight);
     }
 
-    Prop props[]{
-        Prop{{300.0f, 600.0f}, LoadTexture("nature_tileset/Rock.png")}
+    Prop rock {{1000.0f, 1000.0f}, LoadTexture("nature_tileset/Log.png")};
+    Prop *props[] {
+        &rock
     };
 
     SetTargetFPS(60);
@@ -61,14 +62,26 @@ int main()
         // Draw props
         for (auto prop : props)
         {
-            prop.Render(knight.getWorldPos());
+            prop->Render(knight.getWorldPos());
         }
 
+        // Draw goblin
+        int enemyCount = 0;
+        for (auto ptr : Enemies)
+        {
+            if (ptr->getAlive()) enemyCount++;
+        }
+
+        // Draw HP or Game Over
         if (knight.getAlive())
         {
             std::string HP = "HP: ";
             HP.append(std::to_string(knight.getHealth()), 0, 5);
             DrawText(HP.c_str(), 55.f, 45.f, 40, RED);
+
+            std::string lastEnemies = "Enemies: ";
+            lastEnemies.append(std::to_string(enemyCount));
+            DrawText(lastEnemies.c_str(), windowRes[0] - 250.f, 45.f, 40, RED);
         }
         else
         {
@@ -77,14 +90,14 @@ int main()
             continue;
         }
 
-        // Draw knight
-        knight.tick(GetFrameTime());
-
         // Draw goblin
         for (auto ptr : Enemies)
         {
             ptr->tick(GetFrameTime());
         }
+
+        // Draw knight
+        knight.tick(GetFrameTime());
 
         // Map bounds check
         if ((knight.getWorldPos().x < 0) || (knight.getWorldPos().x + windowRes[0] > myBG.texture.width * myBG.scale) ||
@@ -96,12 +109,13 @@ int main()
         // Check props collision
         for (auto prop : props)
         {
-            if (CheckCollisionRecs(knight.getScreenRec(), prop.GetCollisionRec(knight.getWorldPos())))
+            if (CheckCollisionRecs(knight.getScreenRec(), prop->GetCollisionRec(knight.getWorldPos())))
             {
                 knight.undoMovement();
             }
         }
 
+        // Knight attack check
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
         {
             for (auto ptr : Enemies)

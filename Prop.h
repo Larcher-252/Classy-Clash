@@ -7,7 +7,7 @@ class Prop
 {
 public:
     // Constructor
-    Prop(Vector2 pos, Texture2D texture);
+    Prop(Vector2 pos, Texture2D tex);
     // Destructor
     ~Prop();
     // Draw prop
@@ -17,7 +17,7 @@ public:
 
 private:
     Vector2 worldPos{};
-    Texture2D texture{};
+    Texture2D textureProp{};
     float scale{3.0f};
 };
 
