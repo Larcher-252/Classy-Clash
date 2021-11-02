@@ -16,7 +16,7 @@ struct TextureData
 int main()
 {
     // Window params
-    const int windowRes[]{384, 384};
+    const int windowRes[]{1280, 720};
     const char title[]{"Classy Clash"};
     InitWindow(windowRes[0], windowRes[1], title);
 
@@ -24,14 +24,14 @@ int main()
     Texture2D map = LoadTexture("nature_tileset/1Level.png");
     TextureData myBG;
     myBG.texture = map;
-    myBG.scale = 4.0f;
+    myBG.scale = 3.0f;
 
     // Knight params
     Character knight{windowRes[0], windowRes[1]};
 
     // Enemy params
     Enemy goblin{{200.0f, 200.0f}, LoadTexture("characters/goblin_idle_spritesheet.png"), LoadTexture("characters/goblin_run_spritesheet.png")};
-    Enemy badGoblin{{1000.0f, 200.0f}, LoadTexture("characters/goblin_idle_spritesheet.png"), LoadTexture("characters/goblin_run_spritesheet.png")};
+    Enemy badGoblin{{1000.0f, 200.0f}, LoadTexture("characters/slime_idle_spritesheet.png"), LoadTexture("characters/slime_run_spritesheet.png")};
     Enemy *Enemies[]{
         &goblin,
         &badGoblin};
@@ -42,8 +42,7 @@ int main()
     }
 
     Prop props[]{
-        Prop{{300.0f, 600.0f}, LoadTexture("nature_tileset/Rock.png")},
-        Prop{{600.0f, 300.0f}, LoadTexture("nature_tileset/Rock.png")},
+        Prop{{300.0f, 600.0f}, LoadTexture("nature_tileset/Rock.png")}
     };
 
     SetTargetFPS(60);
@@ -89,7 +88,7 @@ int main()
 
         // Map bounds check
         if ((knight.getWorldPos().x < 0) || (knight.getWorldPos().x + windowRes[0] > myBG.texture.width * myBG.scale) ||
-            (knight.getWorldPos().y < 0) || (knight.getWorldPos().y + windowRes[0] > myBG.texture.height * myBG.scale))
+            (knight.getWorldPos().y < 0) || (knight.getWorldPos().y + windowRes[1] > myBG.texture.height * myBG.scale))
         {
             knight.undoMovement();
         }
