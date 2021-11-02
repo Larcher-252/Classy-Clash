@@ -4,6 +4,7 @@
 #include "Prop.h"
 #include "Enemy.h"
 #include <string>
+#include "InvWall.h"
 
 struct TextureData
 {
@@ -46,8 +47,90 @@ int main()
         &rock
     };
 
+    InvWall walls[] {
+        // 1 island
+        InvWall {{505.0f, 300.0f, 2570.f, 10.f}},
+        InvWall {{505.0f, 300.0f, 10.f, 330.f}},
+        InvWall {{505.0f, 630.0f, 175.f, 10.f}},
+        InvWall {{850.0f, 630.0f, 900.f, 10.f}},
+        InvWall {{2005.0f, 630.0f, 785.f, 10.f}},
+        InvWall {{2975.0f, 630.0f, 85.f, 10.f}},
+        InvWall {{3060.0f, 300.0f, 10.f, 340.f}},
+        // bridges 1-2 island
+        InvWall {{670.0f, 630.0f, 10.f, 466.f}},
+        InvWall {{850.0f, 630.0f, 10.f, 466.f}},
+        InvWall {{1730.0f, 630.0f, 10.f, 375.f}},
+        InvWall {{2000.0f, 630.0f, 10.f, 375.f}},
+        InvWall {{2780.0f, 630.0f, 10.f, 450.f}},
+        InvWall {{2975.0f, 630.0f, 10.f, 450.f}},
+
+        // middle islands
+        // left island
+        InvWall {{610.0f, 1090.0f, 70.f, 10.f}},
+        InvWall {{860.0f, 1090.0f, 70.f, 10.f}},
+        InvWall {{610.0f, 1090.0f, 10.f, 700.f}},
+        InvWall {{610.0f, 1780.0f, 70.f, 10.f}},
+        InvWall {{860.0f, 1780.0f, 70.f, 10.f}},
+        InvWall {{930.0f, 1090.0f, 10.f, 180.f}},
+        InvWall {{930.0f, 1270.0f, 390.f, 10.f}},
+        InvWall {{1320.0f, 1270.0f, 10.f, 75.f}},
+        InvWall {{1320.0f, 1500.0f, 10.f, 100.f}},
+        InvWall {{930.0f, 1600.0f, 390.f, 10.f}},
+        InvWall {{930.0f, 1600.0f, 10.f, 200.f}},
+        // middle island
+        InvWall {{1470.0f, 1000.0f, 10.f, 350.f}},
+        InvWall {{1470.0f, 1000.0f, 270.f, 10.f}},
+        InvWall {{2010.0f, 1000.0f, 280.f, 10.f}},
+        InvWall {{2290.0f, 1000.0f, 10.f, 330.f}},
+        InvWall {{2290.0f, 1500.0f, 10.f, 380.f}},
+        InvWall {{1470.0f, 1500.0f, 10.f, 380.f}},
+        InvWall {{2000.0f, 1880.0f, 300.f, 10.f}},
+        InvWall {{1470.0f, 1880.0f, 300.f, 10.f}},
+        // right island
+        InvWall {{2730.0f, 1080.0f, 55.f, 10.f}},
+        InvWall {{2730.0f, 1080.0f, 10.f, 200.f}},
+        InvWall {{2530.0f, 1280.0f, 210.f, 10.f}},
+        InvWall {{2520.0f, 1280.0f, 10.f, 50.f}},
+        InvWall {{2520.0f, 1500.0f, 10.f, 90.f}},
+        InvWall {{2520.0f, 1590.0f, 210.f, 10.f}},
+        InvWall {{2730.0f, 1590.0f, 10.f, 200.f}},
+        InvWall {{2730.0f, 1790.0f, 55.f, 10.f}},
+        InvWall {{2975.0f, 1790.0f, 55.f, 10.f}},
+        InvWall {{2975.0f, 1080.0f, 55.f, 10.f}},
+        InvWall {{3030.0f, 1080.0f, 10.f, 720.f}},
+        // middle bridges
+        InvWall {{1320.0f, 1345.0f, 150.f, 10.f}},
+        InvWall {{1320.0f, 1500.0f, 150.f, 10.f}},
+        InvWall {{2290.0f, 1320.0f, 230.f, 10.f}},
+        InvWall {{2290.0f, 1500.0f, 230.f, 10.f}},
+
+        //Third island
+        InvWall {{610.0f, 2340.0f, 80.f, 10.f}},
+        InvWall {{860.0f, 2340.0f, 70.f, 10.f}},
+        InvWall {{610.0f, 2340.0f, 10.f, 600.f}},
+        InvWall {{610.0f, 2940.0f, 2450.f, 10.f}},
+        InvWall {{3060.f, 2340.0f, 10.f, 600.f}},
+        InvWall {{2980.f, 2340.0f, 80.f, 10.f}},
+        InvWall {{2700.f, 2340.0f, 80.f, 10.f}},
+        InvWall {{2700.f, 2340.0f, 10.f, 200.f}},
+        InvWall {{2075.f, 2540.0f, 620.f, 10.f}},
+        InvWall {{2075.f, 2340.0f, 10.f, 200.f}},
+        InvWall {{2015.f, 2340.0f, 60.f, 10.f}},
+        InvWall {{1665.f, 2340.0f, 105.f, 10.f}},
+        InvWall {{1665.f, 2340.0f, 10.f, 200.f}},
+        InvWall {{925.f, 2540.0f, 750.f, 10.f}},
+        InvWall {{925.f, 2340.0f, 10.f, 200.f}},
+        // 2-3 island bridges
+        InvWall {{680.0f, 1780.0f, 10.f, 560.f}},
+        InvWall {{860.0f, 1780.0f, 10.f, 560.f}},
+        InvWall {{2000.0f, 1880.0f, 10.f, 460.f}},
+        InvWall {{1770.0f, 1880.0f, 10.f, 460.f}},
+        InvWall {{2780.0f, 1790.0f, 10.f, 560.f}},
+        InvWall {{2975.0f, 1790.0f, 10.f, 560.f}},
+    };
+
     SetTargetFPS(60);
-    while (!WindowShouldClose())
+    while (true)
     {
         // Update map pos on screen
         myBG.pos = Vector2Scale(knight.getWorldPos(), -1.0f);
@@ -81,7 +164,13 @@ int main()
 
             std::string lastEnemies = "Enemies: ";
             lastEnemies.append(std::to_string(enemyCount));
-            DrawText(lastEnemies.c_str(), windowRes[0] - 250.f, 45.f, 40, RED);
+            DrawText(lastEnemies.c_str(), windowRes[0] - 250.f, 45.f, 40, BLACK);
+
+            std::string position = "x: ";
+            position.append(std::to_string(knight.getWorldPos().x), 0, 5);
+            position += "\ny: ";
+            position.append(std::to_string(knight.getWorldPos().y), 0, 5);
+            DrawText(position.c_str(), windowRes[0] / 2.2f, 600.f, 40, BLACK);
         }
         else
         {
@@ -122,6 +211,21 @@ int main()
             {
                 if (CheckCollisionRecs(knight.getWeaponCollisionRec(), ptr->getScreenRec()))
                     ptr->takeDamage(knight.getDamValue());
+            }
+        }
+
+        for (auto wall : walls)
+        {
+            wall.getCollisionRec(knight.getWorldPos()).x;
+            DrawRectangleLines(
+                static_cast<int>(wall.getCollisionRec(knight.getWorldPos()).x), 
+                static_cast<int>(wall.getCollisionRec(knight.getWorldPos()).y),
+                static_cast<int>(wall.getCollisionRec(knight.getWorldPos()).width),
+                static_cast<int>(wall.getCollisionRec(knight.getWorldPos()).height),
+                RED);
+            if (CheckCollisionRecs(knight.getScreenRec(), wall.getCollisionRec(knight.getWorldPos())))
+            {
+                knight.undoMovement();
             }
         }
 

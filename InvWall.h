@@ -7,10 +7,10 @@ class InvWall
 {
 public:
     InvWall(Rectangle rec);
-    Rectangle getCollisionRec() const { return collisionRec; };
+    Rectangle getCollisionRec(Vector2 knightPos);
 
 private:
-    Rectangle collisionRec;
+    Rectangle worldRec;
 };
 
 #endif
