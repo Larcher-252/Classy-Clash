@@ -5,6 +5,14 @@ BaseCharacter::BaseCharacter()
 {
 }
 
+BaseCharacter::~BaseCharacter()
+{
+    // Unload all class textures
+    UnloadTexture(idle);
+    UnloadTexture(run);
+    UnloadTexture(texture);
+}
+
 void BaseCharacter::tick(float deltaTime)
 {
     // Backup
@@ -59,4 +67,14 @@ Rectangle BaseCharacter::getSourceRec()
         static_cast<float>(texture.width) / static_cast<float>(frameCount) * (toTheRight ? 1.0f : -1.0f),
         static_cast<float>(texture.height)};
     return rec;
+}
+
+void BaseCharacter::takeDamage(float damage)
+{
+    health -= damage;
+    if (health <= 0.f)
+    {
+        health = 0.f;
+        setAlive(false);
+    }
 }

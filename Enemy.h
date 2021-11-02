@@ -8,14 +8,20 @@
 class Enemy : public BaseCharacter
 {
 public:
+    // Constructor
     Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex);
+    // Override tick
     virtual void tick(float deltaTime) override;
-    void setTarget(Character* knight) {target = knight;}
+    // Set target that is knight
+    void setTarget(Character *knight) { target = knight; }
+    // Override screenPos getter
     virtual Vector2 getScreenPos() override;
+
 private:
-    Character* target {};
-    float damagePerSec {10.f};
-    float radius {25.f};
+    // Battle params
+    Character *target{};
+    float attackRadius{25.f};
+    float visibilityRange{700.f};
 };
 
 #endif

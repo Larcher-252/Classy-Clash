@@ -20,17 +20,30 @@ Enemy::Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex)
     // Speed params
     speed = 3.5f;
     velocity = {0.0f, 0.0f};
+
+    // Health and damage
+    damagePerSec = 30.f;
+    health = 100;
 }
 
 void Enemy::tick(float deltaTime)
 {
-    if (!getAlive()) return;
-    
+    // if dead then exit tick
+    if (!getAlive())
+        return;
+
+    // Get vector to knight
     velocity = Vector2Subtract(target->getScreenPos(), getScreenPos());
-    if (Vector2Length(velocity) <= radius) velocity = {};
+
+    // If knight is too far then stop stalking
+    // and if monster is close enough to attack
+    if ((Vector2Length(velocity) > visibilityRange) || (Vector2Length(velocity) <= attackRadius))
+        velocity = {};
+
     BaseCharacter::tick(deltaTime);
 
-    if (CheckCollisionRecs(GetCollisionRec(), target->GetCollisionRec()))
+    // If close enough then damage the knight
+    if (CheckCollisionRecs(getScreenRec(), target->getScreenRec()))
         target->takeDamage(damagePerSec * deltaTime);
 }
 

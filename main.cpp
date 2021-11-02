@@ -96,7 +96,7 @@ int main()
         // Check props collision
         for (auto prop : props)
         {
-            if (CheckCollisionRecs(knight.GetCollisionRec(), prop.GetCollisionRec(knight.getWorldPos())))
+            if (CheckCollisionRecs(knight.getScreenRec(), prop.GetCollisionRec(knight.getWorldPos())))
             {
                 knight.undoMovement();
             }
@@ -106,8 +106,8 @@ int main()
         {
             for (auto ptr : Enemies)
             {
-                if (CheckCollisionRecs(knight.getWeaponCollisionRec(), ptr->GetCollisionRec()))
-                    ptr->setAlive(false);
+                if (CheckCollisionRecs(knight.getWeaponCollisionRec(), ptr->getScreenRec()))
+                    ptr->takeDamage(knight.getDamValue());
             }
         }
 

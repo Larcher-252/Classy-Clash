@@ -6,14 +6,19 @@
 class Prop
 {
 public:
+    // Constructor
     Prop(Vector2 pos, Texture2D texture);
+    // Destructor
+    ~Prop();
+    // Draw prop
     void Render(Vector2 knightPos);
+    // Get prop collision
     Rectangle GetCollisionRec(Vector2 knightPos);
 
 private:
-    Texture2D texture{};
     Vector2 worldPos{};
-    float scale{4.0f};
+    Texture2D texture{};
+    float scale{3.0f};
 };
 
 #endif

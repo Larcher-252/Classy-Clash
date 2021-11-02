@@ -3,25 +3,30 @@
 
 #include "raylib.h"
 
+// Abstractr class for characters
 class BaseCharacter
 {
 public:
-    BaseCharacter();
+    BaseCharacter();  // Constructor
+    ~BaseCharacter(); // Destructor
     // Rectangle getters
     Rectangle getScreenRec();
     Rectangle getSourceRec();
-    Rectangle GetCollisionRec() { return getScreenRec(); }
     // Undo last character movement
     void undoMovement() { worldPos = lastWorldPos; }
     // Function that is used every frame
     virtual void tick(float deltaTime);
     // Return world position
-    Vector2 getWorldPos() { return worldPos; }
+    Vector2 getWorldPos() const { return worldPos; }
     // Pure virtual function that make class abstract
     virtual Vector2 getScreenPos() = 0;
 
-    bool getAlive() {return alive;}
-    void setAlive(bool isAlive) {alive = isAlive;}
+    // Health and damage
+    bool getAlive() const       { return alive; }
+    void setAlive(bool isAlive) { alive = isAlive; }
+    float getHealth() const     { return health; }
+    float getDamValue() const   { return damagePerSec; }
+    void takeDamage(float damage);
 
 protected:
     // Texture variables
@@ -45,7 +50,10 @@ protected:
     float speed{};
     Vector2 velocity{};
 
+    // Health and damage
     bool alive{true};
+    float health{};
+    float damagePerSec{};
 };
 
 #endif
