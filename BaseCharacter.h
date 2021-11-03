@@ -15,7 +15,7 @@ public:
     // Undo last character movement
     void undoMovement() { worldPos = lastWorldPos; }
     // Function that is used every frame
-    virtual void tick(float deltaTime);
+    virtual void tick(float deltaTime, bool damaged);
     // Return world position
     Vector2 getWorldPos() const { return worldPos; }
     // Pure virtual function that make class abstract

@@ -35,7 +35,7 @@ Character::~Character()
     UnloadTexture(weapon);
 }
 
-void Character::tick(float deltaTime)
+void Character::tick(float deltaTime, bool damaged)
 {
     // If dead then exit tick
     if (!getAlive())
@@ -55,7 +55,8 @@ void Character::tick(float deltaTime)
     // Draw weapon
     drawWeapon();
 
-    BaseCharacter::tick(deltaTime);
+    BaseCharacter::tick(deltaTime, haveBeenDamaged);
+    haveBeenDamaged = false;
 }
 
 Vector2 Character::getScreenPos()

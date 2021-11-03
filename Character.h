@@ -11,11 +11,13 @@ public:
     Character(int windowWidth, int windowHeight);
     ~Character();
     // Override tick for character
-    virtual void tick(float deltaTime) override;
+    virtual void tick(float deltaTime, bool damaged) override;
     // Ovveride screen pos for character
     virtual Vector2 getScreenPos() override;
     // Returns weapon collision rec
-    Rectangle getWeaponCollisionRec() {return weaponCollisionRec;}
+    Rectangle getWeaponCollisionRec() { return weaponCollisionRec; }
+    // Set damaged param
+    void setDamaged(bool damage) { haveBeenDamaged = damage; }
 
 private:
     // Window params for character screen pos
@@ -26,6 +28,8 @@ private:
     Rectangle weaponCollisionRec{};
     float weaponScale{};
     void drawWeapon();
+    // Damaged param
+    bool haveBeenDamaged{};
 };
 
 #endif

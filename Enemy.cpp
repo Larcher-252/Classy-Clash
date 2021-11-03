@@ -26,7 +26,7 @@ Enemy::Enemy(Vector2 pos, Texture2D idle_tex, Texture2D run_tex)
     health = 100;
 }
 
-void Enemy::tick(float deltaTime)
+void Enemy::tick(float deltaTime, bool damaged)
 {
     // if dead then exit tick
     if (!getAlive())
@@ -40,11 +40,14 @@ void Enemy::tick(float deltaTime)
     if ((Vector2Length(velocity) > visibilityRange) || (Vector2Length(velocity) <= attackRadius))
         velocity = {};
 
-    BaseCharacter::tick(deltaTime);
+    BaseCharacter::tick(deltaTime, false);
 
     // If close enough then damage the knight
     if (CheckCollisionRecs(getScreenRec(), target->getScreenRec()))
+    {
         target->takeDamage(damagePerSec * deltaTime);
+        target->setDamaged(true);
+    }
 }
 
 Vector2 Enemy::getScreenPos()

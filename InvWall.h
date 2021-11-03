@@ -6,11 +6,14 @@
 class InvWall
 {
 public:
-    InvWall(Rectangle rec);
-    Rectangle getCollisionRec(Vector2 knightPos);
+    // Construct that add all walls in wallsArray
+    InvWall();
+    // Get collision rec of a certain wall
+    Rectangle getCollisionRec(Vector2 knightPos, int index);
 
 private:
-    Rectangle worldRec;
+    // Array of walls
+    Rectangle wallsArray[68];
 };
 
 #endif

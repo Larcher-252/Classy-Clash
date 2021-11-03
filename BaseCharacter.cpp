@@ -13,7 +13,7 @@ BaseCharacter::~BaseCharacter()
     UnloadTexture(texture);
 }
 
-void BaseCharacter::tick(float deltaTime)
+void BaseCharacter::tick(float deltaTime, bool damaged)
 {
     // Backup
     lastWorldPos = worldPos;
@@ -46,7 +46,9 @@ void BaseCharacter::tick(float deltaTime)
         texture = idle;
 
     // Draw character
-    DrawTexturePro(texture, getSourceRec(), getScreenRec(), Vector2{}, 0.0f, WHITE);
+    Color ch_color;
+    damaged ? ch_color = RED : ch_color = WHITE;
+    DrawTexturePro(texture, getSourceRec(), getScreenRec(), Vector2{}, 0.0f, ch_color);
 }
 
 Rectangle BaseCharacter::getScreenRec()
